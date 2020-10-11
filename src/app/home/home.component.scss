@@ -4,51 +4,100 @@
     width: 100%; 
     position: relative;
     padding: 20px;  
-    background-color: #2C3E50;
+    background-color: #4A235A;
     color: #fff;
-    height: 80px;
-}
+    height: 60px;
 
-.header__title{
-    margin-left: 70px;        
-}
+    .title__container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 210px;
+        margin-left: 80px;
 
-.nav__container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 200px;
-    position: absolute;
-    right: 100px;
-}
+        img{
+            width: 50px;
+        }
 
-.nav__btn{
-    padding: 10px;
-}
+        h2{
+            font-size: 22px;
+        }
+    }
+    
+    .nav__container{
+        position: absolute;
+        right: 100px;
+
+        .nav__btn{
+            padding: 10px 20px;
+            background-color: #CB4335 ;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        }
+    }
 
 .body__container{
+    background-color: #ECF0F1 ;
     display: flex;
     min-height: calc(100vh - 80px);
+
+    .aside{
+        width: 250px;
+        background-color: #333;
+
+        .user__name__container{
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            margin-bottom: 30px;
+            margin-top: 30px;
+
+            .user__profile{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 150px;
+            }
+
+            img{
+                width: 50px;
+            }
+
+            .nav__name{
+                font-weight: 600;
+            }
+        }
+
+        .aside__ul{
+            list-style: none;
+        }
+        
+        .ul__items{
+            display: flex;
+            color: #fff;
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+
+            &:hover{
+                background-color: #ECF0F1;
+                color: #333;
+            }
+
+            i{
+                margin-right: 15px;
+            }
+        }
+    }
+    
+    .content{
+        padding: 30px;
+    }
 }
 
-.aside{
-    width: 15%;
-    border-right: 2px solid #2C3E50;
-}
-
-.aside__ul{
-    list-style: none;
-
-}
-
-.ul__items{
-    font-size: 18px;
-    margin: 20px 30px;
-    cursor: pointer;
-}
-
-.content{
-    width: 70%;
-    padding: 30px;
-}
 

@@ -1,16 +1,33 @@
 <header class="header">
-    <h2 class="header__title">ATP - CRUD</h2>
+    <div class="title__container">
+        <img src="../../assets/stadistics.png" alt="">
+        <h2 class="header__title">ATP - CRUD</h2>
+    </div>
     <div class="nav__container">
-        <p class="nav__name">User Name</p>
-        <button class="nav__btn">Logout</button>
+        <button class="nav__btn" routerLink="/login">Cerrar Sesion</button>
     </div>
 </header>
 <div class="body__container">
     <div class="aside">
+        <div class="user__name__container">
+            <div class="user__profile">
+                <img src="../../assets/add-user.png" alt="">
+                <p class="nav__name">User Name</p>
+            </div>
+        </div>
         <ul class="aside__ul">
-            <li class="ul__items" (click)="changeCrud('users')">Users</li>
-            <li class="ul__items" (click)="changeCrud('meals')">Meals</li>
-            <li class="ul__items" (click)="changeCrud('restaurants')">Restaurants</li>
+            <div class="ul__items" (click)="changeCrud('users')">
+                <i class="fas fa-user"></i>
+                <li>Users</li>
+            </div>
+            <div class="ul__items" (click)="changeCrud('users')">
+                <i class="fas fa-hamburger"></i>
+                <li>Meals</li>
+            </div>
+            <div class="ul__items" (click)="changeCrud('users')">
+                <i class="fas fa-utensils"></i>
+                <li>Restaurants</li>
+            </div>
         </ul>
     </div>
     <div class="content">
