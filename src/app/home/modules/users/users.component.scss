@@ -1,0 +1,59 @@
+.card{
+    display: flex;
+    width: 550px;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 10px;
+
+    .card__profile{
+        width: 50%;
+        display: flex;
+    
+        img{
+            width: 90px;
+        }
+
+        .img__info{
+            margin-left: 20px;
+
+            .profile__name{
+                font-size: 20px;
+            }
+
+            .profile__btn__container{
+            margin-top: 20px;
+            display: flex;
+            width: 120px;
+            justify-content: space-between;
+
+        
+                .btn{
+                cursor: pointer;
+                border: none;
+                border-radius: 3px;
+                padding: 7px 12px;
+                color: #fff;
+                }
+            
+                .delete{
+                background-color: #CB4335;
+                }
+
+                .edit{
+                background-color: #3498DB;
+                }
+            }    
+        }
+    }
+
+    .card__info{
+        width: 50%;
+
+        .info__item{
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+        }
+    }
+}
+

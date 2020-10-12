@@ -5,13 +5,10 @@ import { RegisterComponent } from './auth/components/register/register.component
 
 const routes: Routes = [
   {
-    path:'', pathMatch:'full', redirectTo:'login'
+    path:'', pathMatch:'full', redirectTo:'auth/login'
   },
   {
-    path: 'login', component: LoginComponent
-  },
-  {
-    path: 'register', component: RegisterComponent
+    path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
