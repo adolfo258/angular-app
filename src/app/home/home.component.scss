@@ -1,32 +1,53 @@
 .header{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%; 
     position: relative;
     padding: 20px;  
-    background-color: #4A235A;
-    color: #fff;
+    background-color: #252525;
+    color: #ECF0F1;
     height: 60px;
 
     .title__container{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 210px;
-        margin-left: 80px;
+        
 
         img{
             width: 50px;
         }
 
         h2{
-            font-size: 22px;
+            font-weight: 400;
+            color: #03A9F4;
+            font-size: 20px;
         }
+    }
+
+    .search__bar{
+        display: flex;
+        position: relative;
+
+        input{
+            border: 3px solid #03A9F4;
+            outline: none;
+            width: 350px;
+            padding: 7px;
+            height: 35px;
+            border-radius: 10px;
+            background-color: #ECF0F1;
+        }
+
+        i{
+           position: absolute;
+           right: 10px;
+           top: 9px;
+           color: #03A9F4;
+        }
+
+
     }
     
     .nav__container{
-        position: absolute;
-        right: 100px;
 
         .nav__btn{
             padding: 10px 20px;
@@ -44,11 +65,11 @@
 .body__container{
     background-color: #ECF0F1 ;
     display: flex;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 60px);
 
     .aside{
         width: 250px;
-        background-color: #333;
+        background-color: #252525;
 
         .user__name__container{
             display: flex;
@@ -61,16 +82,22 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                width: 150px;
+                width: 160px;
+
+                img{
+                    width: 60px;
+                    border-radius: 3px;
+                }
+
+                .nav__name{
+                    font-weight: 600;
+                }
+
+                .nav__rol{
+                    font-size: 13px;
+                }
             }
 
-            img{
-                width: 50px;
-            }
-
-            .nav__name{
-                font-weight: 600;
-            }
         }
 
         .aside__ul{
@@ -86,7 +113,7 @@
 
             &:hover{
                 background-color: #ECF0F1;
-                color: #333;
+                color: #03A9F4;
             }
 
             i{

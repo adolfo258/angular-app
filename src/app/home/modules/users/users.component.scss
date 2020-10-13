@@ -1,12 +1,19 @@
+.card__container{
+    border: 2px solid #252525;
+    border-radius: 5px;
+}
+
 .card{
     display: flex;
-    width: 550px;
+    width: 530px;
     justify-content: space-between;
-    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px;
     padding: 10px;
+    background-color: #D0D3D4;
 
     .card__profile{
-        width: 50%;
+        width: 55%;
         display: flex;
     
         img{
@@ -47,7 +54,7 @@
     }
 
     .card__info{
-        width: 50%;
+        width: 45%;
 
         .info__item{
             display: flex;

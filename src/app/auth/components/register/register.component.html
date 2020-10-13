@@ -1,17 +1,17 @@
 <div class="form__container">
-    <form action="" class="form">
+    <form action="" class="form" #userForm="ngForm" (ngSubmit)="createUser(userForm)">
         <img src="../../../../assets/lock.png" alt="">
         <p class="register__title">Registrar Usuario</p>
-        <input type="text" class="input" name="name" placeholder="Nombre">
-        <input type="text" class="input" name="lastName" placeholder="Apellido">
-        <input type="text" class="input" name="dni" placeholder="DNI">
-        <input type="text" class="input" name="fec_nac" placeholder="Fecha de nacimiento">
-        <input type="text" class="input" name="sex" placeholder="Sexo">
-        <input type="text" class="input" name="password" placeholder="Contraseña">
-        <input type="email" class="input" name="email" placeholder="Email">
-        <input type="text" class="input" name="rol" placeholder="Rol">
+        <input type="text" class="input" name="name" placeholder="Nombre" [(ngModel)]="userService.createdUser.name">
+        <input type="text" class="input" name="lastName" placeholder="Apellido" [(ngModel)]="userService.createdUser.lastName">
+        <input type="text" class="input" name="dni" placeholder="DNI" [(ngModel)]="userService.createdUser.dni">
+        <input type="text" class="input" name="fec_nac" placeholder="Fecha de nacimiento" [(ngModel)]="userService.createdUser.fec_nac">
+        <input type="text" class="input" name="sex" placeholder="Sexo" [(ngModel)]="userService.createdUser.sex">
+        <input type="text" class="input" name="password" placeholder="Contraseña" [(ngModel)]="userService.createdUser.password">
+        <input type="email" class="input" name="email" placeholder="Email" [(ngModel)]="userService.createdUser.email">
+        <input type="text" class="input" name="rol" placeholder="Rol" [(ngModel)]="userService.createdUser.rol">
         <button class="btn__login" type="submit">Registrar</button>
     </form>
-    <p class="ingresar">¿Ya estas registrado? <a routerLink="/login">Ingresar</a></p>
+    <p class="ingresar">¿Ya estas registrado? <a routerLink="/auth/login">Ingresar</a></p>
 </div>
 

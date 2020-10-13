@@ -1,12 +1,12 @@
-<div class="card__container">
+<div class="card__container" *ngFor="let user of userService.allUsers">
     <div class="card">
         <div class="card__profile">
             <div>
                 <img src="../../../../assets/Sin título.png" alt="">
             </div>
             <div class="img__info">
-                <p class="profile__name">Adolfo Zuazo</p>
-                <p class="profile__rol">Rol: User</p>
+                <p class="profile__name"><strong>{{user.name}} {{user.lastName}}</strong></p>
+                <p class="profile__rol">Rol: {{user.rol[0]}}</p>
                 <div class="profile__btn__container">
                     <button class="btn edit">Edit</button>
                     <button class="btn delete">Delete</button>
@@ -15,20 +15,20 @@
         </div>
         <div class="card__info">
             <div class="info__item">
-                <p>DNI:</p>
-                <p>37.525.727</p>
+                <p><strong>DNI:</strong></p>
+                <p>{{user.dni}}</p>
             </div>
             <div class="info__item">
-                <p>Telefono:</p>
-                <p>(351) 7477280</p>
+                <p><strong>Email:</strong></p>
+                <p>{{user.email}}</p>
             </div>
             <div class="info__item">
-                <p>Fecha de nac:</p>
-                <p>30/08/93</p>
+                <p><strong>Nacimiento:</strong></p>
+                <p>{{user.fec_nac}}</p>
             </div>
             <div class="info__item">
-                <p>Sexo:</p>
-                <p>Masculino</p>
+                <p><strong>Sexo:</strong></p>
+                <p>{{user.sex}}</p>
             </div>
         </div>
     </div>

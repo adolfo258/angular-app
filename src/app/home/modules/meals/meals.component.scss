@@ -1,0 +1,71 @@
+.card__container{
+    border: 2px solid #252525;
+    border-radius: 5px;
+}
+
+.card{
+    display: flex;
+    width: 530px;
+    justify-content: space-between;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    background-color: #D0D3D4;
+
+    .card__profile{
+        width: 55%;
+        display: flex;
+    
+        img{
+            width: 90px;
+            height: 90px;
+        }
+
+        .img__info{
+            margin-left: 20px;
+
+            .profile__name{
+                font-size: 20px;
+            }
+
+            .profile__btn__container{
+            margin-top: 20px;
+            display: flex;
+            width: 120px;
+            justify-content: space-between;
+
+        
+                .btn{
+                cursor: pointer;
+                border: none;
+                border-radius: 3px;
+                padding: 7px 12px;
+                color: #fff;
+                }
+            
+                .delete{
+                background-color: #CB4335;
+                }
+
+                .edit{
+                background-color: #3498DB;
+                }
+            }    
+        }
+    }
+
+    .card__info{
+        width: 45%;
+
+        .info__item{
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+
+            .restaurants{
+                text-align: right;
+            }
+        }
+    }
+}
+
