@@ -14,4 +14,8 @@ export class UsersService {
   getUsers() {
     return this.http.get(`${this.url}/user`)
   }
+
+  deleteUser(id:string) {
+    return this.http.delete(`${this.url}/user/${id}`)
+  }
 }

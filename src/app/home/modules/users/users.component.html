@@ -9,7 +9,7 @@
                 <p class="profile__rol">Rol: {{user.rol}}</p>
                 <div class="profile__btn__container">
                     <button class="btn edit">Edit</button>
-                    <button class="btn delete">Delete</button>
+                    <button class="btn delete" (click)="deleteUser(user._id)">Delete</button>
                 </div>
             </div>
         </div>

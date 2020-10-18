@@ -8,15 +8,18 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  users:boolean = false
+  constructor(public authService: AuthService) { 
+
+  }
+
+  ngOnInit(): void {
+    
+  }
+
+  users:boolean = true
   meals:boolean = false
   restaurants:boolean = false
 
-  constructor(public authService: AuthService) { 
-    
-    
-  }
-  
   changeCrud (crud){
     if(crud==='users'){ 
       this.users = true 
@@ -33,10 +36,6 @@ export class HomeComponent implements OnInit {
       this.meals = false 
       this.restaurants = true 
     }
-  }
-
-  ngOnInit(): void {
-    
   }
 
 }

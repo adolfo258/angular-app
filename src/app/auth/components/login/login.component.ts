@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         }
       )
     }else{
-      alert('Completa los campos correctamente')
+      alert('Completa todos los campos')
     }
   }
 }

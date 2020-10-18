@@ -9,7 +9,8 @@ import { UsersService } from '../../../services/user/users.service'
 })
 export class UsersComponent implements OnInit {
 
-  allUsers
+  allUsers//array con todos los users
+
 
   constructor(public userService: UsersService) { }
 
@@ -25,4 +26,12 @@ export class UsersComponent implements OnInit {
     )
   }
 
+  deleteUser(id) {
+    if(confirm('¿Estas seguro de querer borrar este Usuario?')){
+      this.userService.deleteUser(id).subscribe(
+        res => this.getUsers(),
+        err => console.log(err)
+      )
+    }
+  }
 }

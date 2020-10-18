@@ -14,6 +14,9 @@ export class GuardGuard implements CanLoad {
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       const token = localStorage.getItem('authToken')
+
+      //TODO:validar que le token no este vencido y sea valido
+
       if(token){
         return true
       }else{

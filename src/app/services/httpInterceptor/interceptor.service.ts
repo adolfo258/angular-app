@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class InterceptorService implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {//en cada peticion http se ejecuta esto
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {//en cada peticion http se ejecuta este interceptor
 
     const token = localStorage.getItem('authToken')
 
