@@ -1,15 +1,18 @@
 <div class="form__container">
-    <form action="" class="form" #userForm="ngForm" (ngSubmit)="createUser(userForm)">
+    <form class="form" [formGroup]="registeredUser" (ngSubmit)="registerUser()">
         <img src="../../../../assets/lock.png" alt="">
         <p class="register__title">Registrar Usuario</p>
-        <input type="text" class="input" name="name" placeholder="Nombre" [(ngModel)]="userService.createdUser.name">
-        <input type="text" class="input" name="lastName" placeholder="Apellido" [(ngModel)]="userService.createdUser.lastName">
-        <input type="text" class="input" name="dni" placeholder="DNI" [(ngModel)]="userService.createdUser.dni">
-        <input type="text" class="input" name="fec_nac" placeholder="Fecha de nacimiento" [(ngModel)]="userService.createdUser.fec_nac">
-        <input type="text" class="input" name="sex" placeholder="Sexo" [(ngModel)]="userService.createdUser.sex">
-        <input type="text" class="input" name="password" placeholder="Contraseña" [(ngModel)]="userService.createdUser.password">
-        <input type="email" class="input" name="email" placeholder="Email" [(ngModel)]="userService.createdUser.email">
-        <input type="text" class="input" name="rol" placeholder="Rol" [(ngModel)]="userService.createdUser.rol">
+        <input type="text" class="input" name="name" placeholder="Nombre" formControlName="name" (keydown.space)="$event.preventDefault()">
+        <input type="text" class="input" name="lastName" placeholder="Apellido" formControlName="lastName" (keydown.space)="$event.preventDefault()">
+        <input type="text" class="input" name="dni" placeholder="DNI" maxlength="8" formControlName="dni" (keydown.space)="$event.preventDefault()">
+        <input type="date" max="2020-01-01" class="input" name="fec_nac" placeholder="Fecha de nacimiento" formControlName="fec_nac" (keydown.space)="$event.preventDefault()">
+        <select type="text" class="input" name="sex" formControlName="sex">
+            <option  disabled value="">Sexo</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+        </select>
+        <input type="password" class="input" name="password" placeholder="Contraseña" formControlName="password" (keydown.space)="$event.preventDefault()">
+        <input type="text" class="input" name="email" placeholder="Email" formControlName="email" (keydown.space)="$event.preventDefault()">
         <button class="btn__login" type="submit">Registrar</button>
     </form>
     <p class="ingresar">¿Ya estas registrado? <a routerLink="/auth/login">Ingresar</a></p>

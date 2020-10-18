@@ -1,12 +1,12 @@
-<div class="card__container" *ngFor="let user of userService.allUsers">
+<div class="card__container" *ngFor="let user of allUsers">
     <div class="card">
         <div class="card__profile">
             <div>
-                <img src="../../../../assets/Sin título.png" alt="">
+                <img src="../../../../assets//add-user.png" alt="">
             </div>
             <div class="img__info">
                 <p class="profile__name"><strong>{{user.name}} {{user.lastName}}</strong></p>
-                <p class="profile__rol">Rol: {{user.rol[0]}}</p>
+                <p class="profile__rol">Rol: {{user.rol}}</p>
                 <div class="profile__btn__container">
                     <button class="btn edit">Edit</button>
                     <button class="btn delete">Delete</button>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ export class HomeComponent implements OnInit {
   meals:boolean = false
   restaurants:boolean = false
 
-  constructor() { 
+  constructor(public authService: AuthService) { 
     
     
   }

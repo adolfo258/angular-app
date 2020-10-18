@@ -9,6 +9,8 @@ import { UsersService } from '../../../services/user/users.service'
 })
 export class UsersComponent implements OnInit {
 
+  allUsers
+
   constructor(public userService: UsersService) { }
 
   ngOnInit(): void {
@@ -18,7 +20,7 @@ export class UsersComponent implements OnInit {
   //Me trae todos los users
   getUsers(){
     this.userService.getUsers().subscribe(
-      res=> this.userService.allUsers = res,//Le asigno el array de todos los usuarios a una variable que esta en services
+      res=> this.allUsers = res,
       err => console.log(err)
     )
   }
