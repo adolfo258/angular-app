@@ -82,7 +82,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                width: 160px;
+                width: 190px;
 
                 img{
                     width: 60px;
@@ -113,16 +113,48 @@
 
             &:hover{
                 background-color: #ECF0F1;
-                color: #03A9F4;
+                color: #252525;
             }
 
             i{
                 margin-right: 15px;
             }
         }
+
+        .active{
+            background-color: #ECF0F1;
+            color: #03A9F4 !important;
+        }
     }
     .content{
-        padding: 40px;
+        margin: 0 auto;
+
+        .btn__content{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0 ;
+
+            .newUser{
+               padding: 10px;
+               background-color:  #1E8449;
+               border: none;
+               border-radius: 5px;
+               color: #ECF0F1;  
+               cursor: pointer;
+               margin-right: 10px;
+            }
+
+            .deleteAll{
+                padding: 10px;
+                background-color:  #CB4335;
+                border: none;
+                border-radius: 5px;
+                color: #ECF0F1;  
+                cursor: pointer;
+                margin-left: 10px;
+             }
+        }
     }
     
        

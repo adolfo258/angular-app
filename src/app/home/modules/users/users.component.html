@@ -6,7 +6,7 @@
             </div>
             <div class="img__info">
                 <p class="profile__name"><strong>{{user.name}} {{user.lastName}}</strong></p>
-                <p class="profile__rol">Rol: {{user.rol}}</p>
+                <p class="profile__rol">{{user.createdAt.substr(0, 10)}}</p>
                 <div class="profile__btn__container">
                     <button class="btn edit">Edit</button>
                     <button class="btn delete" (click)="deleteUser(user._id)">Delete</button>
