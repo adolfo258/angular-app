@@ -127,34 +127,9 @@
         }
     }
     .content{
+        padding: 40px;
         margin: 0 auto;
 
-        .btn__content{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0 ;
-
-            .newUser{
-               padding: 10px;
-               background-color:  #1E8449;
-               border: none;
-               border-radius: 5px;
-               color: #ECF0F1;  
-               cursor: pointer;
-               margin-right: 10px;
-            }
-
-            .deleteAll{
-                padding: 10px;
-                background-color:  #CB4335;
-                border: none;
-                border-radius: 5px;
-                color: #ECF0F1;  
-                cursor: pointer;
-                margin-left: 10px;
-             }
-        }
     }
     
        

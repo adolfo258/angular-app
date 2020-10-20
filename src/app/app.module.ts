@@ -16,8 +16,6 @@ import { InterceptorService } from './services/httpInterceptor/interceptor.servi
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
-    HomeModule,
     HttpClientModule
   ],
   providers: [ GuardGuard, { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true } ],

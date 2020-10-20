@@ -22,27 +22,21 @@
             </div>
         </div>
         <ul class="aside__ul">
-            <div class="ul__items" [ngClass]="users? 'active' : ''" (click)="changeCrud('users')">
+            <div class="ul__items" routerLink="/home/users" routerLinkActive="active">
                 <i class="fas fa-user"></i>
                 <li>Users</li>
             </div>
-            <div class="ul__items" [ngClass]="meals? 'active' : ''" (click)="changeCrud('meals')">
+            <div class="ul__items" routerLink="/home/meals" routerLinkActive="active">
                 <i class="fas fa-hamburger"></i>
                 <li>Meals</li>
             </div>
-            <div class="ul__items" [ngClass]="restaurants? 'active' : ''" (click)="changeCrud('restaurants')">
+            <div class="ul__items" routerLink="/home/restaurants" routerLinkActive="active">
                 <i class="fas fa-utensils"></i>
                 <li>Restaurants</li>
             </div>
         </ul>
     </div>
     <div class="content">
-        <div class="btn__content">
-            <button class="newUser">Crear nuevo usuario</button>
-            <button class="deleteAll">Borrar toda la lista</button>
+        <router-outlet></router-outlet>
         </div>
-        <app-users *ngIf="users"></app-users>
-        <app-meals *ngIf="meals"></app-meals>
-        <app-restaurants *ngIf="restaurants"></app-restaurants>
-    </div>
 </div>
