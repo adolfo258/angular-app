@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
       fec_nac: ["", Validators.required],
       sex: ["", Validators.required],
       password: ["", [Validators.required, Validators.minLength(5)]],
-      email: ["", [Validators.required, Validators.email]]
+      email: ["", [Validators.required, Validators.email]],
+      rol: ["", Validators.required]
     })
 
   }

@@ -14,7 +14,7 @@ export class GuardGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      const token = localStorage.getItem('authToken')
+      const token = localStorage.getItem('Authorization')
       const helper = new JwtHelperService();
 
       const isExpired = helper.isTokenExpired(token);

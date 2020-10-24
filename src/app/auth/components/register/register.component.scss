@@ -1,19 +1,23 @@
+.register__container{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
 .form__container{
-    margin: 0 auto;
-    margin-top: 100px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-self: center;
     align-items: center;
     background-color: #444;
     width: 400px;
     border-radius: 5px;
-
+    height: fit-content;
+    
     .form{
         padding: 20px;
         width: 100%;   
         text-align: center;
-        position: relative;
 
         .register__title{
             font-size: 30px;
@@ -24,14 +28,12 @@
         
         img{
             width: 100px;
-            height: 10  0px;   
-            position: relative;
         }
 
         .input{
             display: block;
             padding: 10px;
-            height: 45px;
+            height: 40px;
             width: 100%;
             margin: 15px 0;
             border-radius: 3px;
@@ -57,7 +59,6 @@
     }
 
     .ingresar{
-
         color: #fff;
         margin-bottom: 20px;
         
@@ -66,4 +67,17 @@
         }
     }
     
+}
+
+//-------------MEDIA-QUERYS-------------//
+
+@media screen and (max-width:900px){
+
+    .form__container{
+        margin: 20px;
+
+        .input{
+            height: 35px !important;
+        }
+    }
 }

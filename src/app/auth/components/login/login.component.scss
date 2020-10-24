@@ -1,21 +1,24 @@
-
+.login__container{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
 
 .form__container{
-    margin: 0 auto;
-    margin-top: 100px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color: #444;
     width: 400px;
     border-radius: 5px;
+    height: fit-content;
+    align-self: center;
+    margin: 10px;
 
     .form{
         padding: 20px;
         width: 100%;   
         text-align: center;
-        position: relative;
 
         .login__title{
             font-size: 30px;
@@ -26,8 +29,6 @@
         
         img{
             width: 100px;
-            height: 10  0px;   
-            position: relative;
         }
 
         .input{

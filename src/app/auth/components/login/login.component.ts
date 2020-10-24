@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     if(this.logedUser.valid){
       this.authService.loginUser(this.logedUser.value).subscribe(
         res => {
-          if(res.token){//si hay token me redirige a home
+          if(res.bearerToken){//si hay token me redirige a home
             this.route.navigateByUrl('/home').then().catch()
           }
         },

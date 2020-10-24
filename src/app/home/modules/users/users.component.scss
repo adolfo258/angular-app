@@ -1,6 +1,4 @@
-
 /* <--------------------CONTENT------------------> */
-
 .user__component__container{
     position: relative;
 }
@@ -41,7 +39,7 @@
 .card{
     display: flex;
     width: 550px;
-    justify-content: space-between;
+    justify-content: space-around;
     border-radius: 5px;
     margin: 10px;
     padding: 10px;
@@ -50,6 +48,8 @@
     .card__profile{
         width: 55%;
         display: flex;
+        padding: 10px;
+        
     
         img{
             width: 90px;
@@ -90,6 +90,7 @@
 
     .card__info{
         width: 45%;
+        padding: 10px;
 
         .info__item{
             display: flex;
@@ -163,4 +164,29 @@
 
 .active{
     display: flex;
+}
+
+//--------------MEDIA-QUERYS--------------//
+
+@media screen and (max-width: 900px){
+    .card{
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    .info__item{
+        flex-direction: column;
+    }
+
+    .form{
+        width: 95% !important;
+
+        .register__title{
+            font-size: 24px !important;
+        }
+
+        .input{
+            height: 35px !important;
+        }
+    }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
-import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,18 +11,21 @@ export class HomeComponent implements OnInit {
 
   userDecoded//user logeado actualmente
 
+  activeMovile
+
   constructor(public authService: AuthService, private router:Router) { }
 
 
   ngOnInit(): void {
-    this.getUserLoged()
+    this.userDecoded = this.authService.getUserLoged()
   }
 
-  getUserLoged() {// me debuelve los datos del usuario que inicio sesion
-    const token = localStorage.getItem('authToken');
-    const helper = new JwtHelperService();
-    
-    this.userDecoded = helper.decodeToken(token);
-  }
 
+  changeClass(){
+    if(this.activeMovile === ''){
+      this.activeMovile = 'active'
+    }else{
+      this.activeMovile = ''
+    }
+  }
 }

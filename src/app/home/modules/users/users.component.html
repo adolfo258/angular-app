@@ -4,7 +4,7 @@
             <button class="newUser" (click)="changeClassForm('active')">Crear nuevo usuario</button> 
             <button class="deleteAll" (click)="deleteAllUsers()">Borrar toda la lista</button>
         </div>
-        <div class="card__container" *ngFor="let user of allUsers">
+        <div class="card__container" *ngFor="let user of allUsers | paginate: { itemsPerPage: 2, currentPage: p }">
             <div class="card">
                 <div class="card__profile">
                     <div>
@@ -15,7 +15,7 @@
                         <p class="profile__rol">{{user.createdAt.substr(0, 10)}}</p>
                         <p class="profile__rol"><strong>Rol: </strong>{{user.rol}}</p>
                         <div class="profile__btn__container">
-                            <button class="btn edit">Edit</button>
+                            <button class="btn edit" (click)="editUser(user)">Edit</button>
                             <button class="btn delete" (click)="deleteUser(user._id)">Delete</button>
                         </div>
                     </div>
@@ -40,11 +40,12 @@
                 </div>
             </div>
         </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
     
     <div class="form__container" [ngClass]="activeFormClass">
-        <form class="form" [formGroup]="createdUser" (ngSubmit)="createUser()">
-            <p class="register__title">Crear Usuario</p>
+        <form class="form" [formGroup]="createdUser" (ngSubmit)="createOrEditUser(userSelected)">
+            <p class="register__title">{{userSelected? 'Editar Usuario' : 'Crear Usuario'}}</p>
             <input type="text" class="input" name="name" placeholder="Nombre" formControlName="name" (keydown.space)="$event.preventDefault()">
             <input type="text" class="input" name="lastName" placeholder="Apellido" formControlName="lastName" (keydown.space)="$event.preventDefault()">
             <input type="text" class="input" name="dni" placeholder="DNI" maxlength="8" formControlName="dni" (keydown.space)="$event.preventDefault()">
@@ -54,10 +55,16 @@
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
             </select>
-            <input type="password" class="input" name="password" placeholder="Contraseña" formControlName="password" (keydown.space)="$event.preventDefault()">
+            <input type="password" class="input" name="password" placeholder="Contraseña" formControlName="password" (keydown.space)="$event.preventDefault()" [attr.disabled]="userSelected? '' : null">
             <input type="text" class="input" name="email" placeholder="Email" formControlName="email" (keydown.space)="$event.preventDefault()">
-            <input type="text" class="input" name="email" placeholder="Rol" formControlName="rol" (keydown.space)="$event.preventDefault()">
-            <button class="btn__login" type="submit">Crear</button>
+            <select type="text" class="input" name="email" formControlName="rol" (keydown.space)="$event.preventDefault()">
+                <option disabled value="">Rol</option>
+                <option value="admin" [disabled]="checkRole(['admin'])">Admin</option>
+                <option value="restaurant_manager" [disabled]="checkRole(['admin'])" >Restaurant Manager</option>
+                <option value="meals_manager" [disabled]="checkRole(['admin', 'restaurant_manager'])" >Meals manager</option>
+                <option value="user">User</option>
+            </select>
+            <button class="btn__login" type="submit" >{{userSelected? 'Editar' : 'Crear'}}</button>
             <button class="btn__login close" (click)="changeClassForm('')" type="button">Cerrar</button>
         </form>
     </div>
