@@ -26,4 +26,11 @@ export class UsersService {
   editUserService(user, id) {
     return this.http.put(`${this.url}/user/${id}`, user)
   }
+
+  uploadAvatar(avatar:File, id) {
+    const fd = new FormData()
+    fd.append('avatar', avatar)
+    
+    return this.http.post(`${this.url}/user/uploads/${id}`, fd)
+  }
 }

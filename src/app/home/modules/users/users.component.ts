@@ -23,6 +23,8 @@ export class UsersComponent implements OnInit {
 
   userSelected//usuario selecionado para editarlo y mostrarlo en el form
 
+  avatar: File
+
 
   constructor(public userService: UsersService, public authService:AuthService,public homeComponent:HomeComponent , private formBuilder: FormBuilder) {
     this.createdUser = this.formBuilder.group({
@@ -33,6 +35,7 @@ export class UsersComponent implements OnInit {
       sex: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
+      avatar: '',
       rol:['', Validators.required]
     })
 
@@ -55,12 +58,36 @@ export class UsersComponent implements OnInit {
       sex: '',
       password: '',
       email:'',
+      avatar:'',
       rol:''
     })
   }
 
+  
+  avatarSelected(event):void{
+    if(event.target.files){
+      this.avatar = <File>event.target.files[0]
+    }
+  }
+
+  changeAvatar(id) {
+    this.userService.uploadAvatar(this.avatar, id).subscribe(
+      res => this.getUsers(),
+      err => console.log(err)
+    )
+  }
+
   checkRole(roles) {
     return this.authService.checkRole(roles, this.userLoged)
+  }
+
+  //solo puedo cambiar imagen de mi user o si soy admin el de todos tambien
+  checkAvatarChange(userId){
+    if(this.userLoged.user._id === userId || this.userLoged.user.rol === 'admin'){
+      return false
+    } else{
+      return true
+    }
   }
 
   getUsers(){
@@ -100,13 +127,20 @@ export class UsersComponent implements OnInit {
     this.createdUser.patchValue(user)
   }
 
+  uploadAvatar(user) {
+    this.userService.uploadAvatar(user.avatar, user.id).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    )
+  }
+
   
   createOrEditUser(user?) {
 
     //CREAR NUEVO USUARIO
     if(!user){
-      console.log(this.createdUser.value)
       if(this.createdUser.valid){
+        console.log(this.createdUser.value)
         this.authService.registerUserService(this.createdUser.value).subscribe(
           res => {
             alert('Usuario registrado correctamente')

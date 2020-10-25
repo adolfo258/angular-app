@@ -5,10 +5,14 @@
             <button class="deleteAll" (click)="deleteAllUsers()">Borrar toda la lista</button>
         </div>
         <div class="card__container" *ngFor="let user of allUsers | paginate: { itemsPerPage: 2, currentPage: p }">
+            <form (ngSubmit)="changeAvatar(user._id)">
+                <input type="file" name="avatar" [disabled]="checkAvatarChange(user._id)" (change)="avatarSelected($event)">
+                <button type="submit" [disabled]="checkAvatarChange(user._id)">Cambiar avatar</button>
+            </form>
             <div class="card">
                 <div class="card__profile">
                     <div>
-                        <img src="../../../../assets//add-user.png" alt="">
+                        <img [src]="user.avatar? 'http://localhost:3000/' + user.avatar : '../../../../assets/add-user.png'" alt="">
                     </div>
                     <div class="img__info">
                         <p class="profile__name"><strong>{{user.name}} {{user.lastName}}</strong></p>
