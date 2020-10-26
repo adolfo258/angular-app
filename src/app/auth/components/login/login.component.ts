@@ -1,40 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth/auth.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
+  logedUser: FormGroup;
 
-  logedUser: FormGroup
-
-  constructor(public authService:AuthService, private formBuilder:FormBuilder, private route:Router) { 
+  constructor(
+    public authService: AuthService,
+    private formBuilder: FormBuilder,
+    private route: Router
+  ) {
     this.logedUser = this.formBuilder.group({
-      email:["", [Validators.required, Validators.email]],
-      password: ["", Validators.required]
-    })
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required],
+    });
   }
 
-  ngOnInit(): void { }
-  
-  loginUser(){
-    if(this.logedUser.valid){
+  ngOnInit(): void {}
+
+  loginUser() {
+    if (this.logedUser.valid) {
       this.authService.loginUser(this.logedUser.value).subscribe(
-        res => {
-          if(res.bearerToken){//si hay token me redirige a home
-            this.route.navigateByUrl('/home').then().catch()
+        (res) => {
+          if (res.bearerToken) {
+            //si hay token me redirige a home
+            this.route.navigateByUrl("/home").then().catch();
           }
         },
-        err => {
-          alert('Email y/o Password incorrecto')
+        (err) => {
+          alert("Email y/o Password incorrecto");
         }
-      )
-    }else{
-      alert('Completa todos los campos')
+      );
+    } else {
+      alert("Completa todos los campos");
     }
   }
 }

@@ -1,16 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { MealsRoutingModule } from './meals-routing.module';
-import { MealsComponent } from './meals.component';
-
+import { MealsRoutingModule } from "./meals-routing.module";
+import { MealsComponent } from "./meals.component";
 
 @NgModule({
   declarations: [MealsComponent],
-  imports: [
-    CommonModule,
-    MealsRoutingModule
-  ],
-  exports:[MealsComponent]
+  imports: [CommonModule, MealsRoutingModule],
+  exports: [MealsComponent],
 })
-export class MealsModule { }
+export class MealsModule {}

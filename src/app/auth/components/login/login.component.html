@@ -1,15 +1,31 @@
 <div class="login__container">
-    <div class="form__container">
-        <form class="form" [formGroup]="logedUser" (ngSubmit)="loginUser()">
-            <img src="../../../../assets/lock.png" alt="">
-            <p class="login__title">Ingresar Usuario</p>
-            <label for="" class="label">Email</label>
-            <input type="text" class="input" name="email" placeholder="Escribe tu e-mail" formControlName="email" (keydown.space)="$event.preventDefault()">
-            <label for="" class="label">Contraseña</label>
-            <input type="password" class="input" name="password" placeholder="Escribe tu contraseña" formControlName="password" (keydown.space)="$event.preventDefault()">
-            <button class="btn__login" type="submit">Ingresar</button>
-        </form>
-    
-        <p class="register">¿Sos nuevo? <a routerLink="/auth/register">Registrarse</a></p>
-    </div>
+  <div class="form__container">
+    <form class="form" [formGroup]="logedUser" (ngSubmit)="loginUser()">
+      <img src="../../../../assets/lock.png" alt="" />
+      <p class="login__title">Ingresar Usuario</p>
+      <label for="" class="label">Email</label>
+      <input
+        type="text"
+        class="input"
+        name="email"
+        placeholder="Escribe tu e-mail"
+        formControlName="email"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <label for="" class="label">Contraseña</label>
+      <input
+        type="password"
+        class="input"
+        name="password"
+        placeholder="Escribe tu contraseña"
+        formControlName="password"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <button class="btn__login" type="submit">Ingresar</button>
+    </form>
+
+    <p class="register">
+      ¿Sos nuevo? <a routerLink="/auth/register">Registrarse</a>
+    </p>
+  </div>
 </div>

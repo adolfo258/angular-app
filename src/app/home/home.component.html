@@ -1,44 +1,48 @@
 <header class="header">
-    <div class="title__container">
-        <h2 class="header__title">TP - C.R.U.D</h2>
-    </div>
-    <div class="home__title">
-        <img src="../../assets/angular.png" alt="" >
-        <p class="home__menu__movile" (click)="changeClass()">Menu <i class="fas fa-chevron-down"></i></p>
-        <p class="home__menu__web">Panel de Administración</p>
-    </div>
-    <div class="nav__container">
-        <button class="nav__btn" routerLink="/login" (click)="authService.logout()">Cerrar Sesion</button>
-    </div>
+  <div class="title__container">
+    <h2 class="header__title">TP - C.R.U.D</h2>
+  </div>
+  <div class="home__title">
+    <img src="../../assets/angular.png" alt="" />
+    <p class="home__menu__movile" (click)="changeClass()">
+      Menu <i class="fas fa-chevron-down"></i>
+    </p>
+    <p class="home__menu__web">Panel de Administración</p>
+  </div>
+  <div class="nav__container">
+    <button class="nav__btn" routerLink="/login" (click)="authService.logout()">
+      Cerrar Sesion
+    </button>
+  </div>
 </header>
 <div class="body__container">
-    <div class="aside" [ngClass]="activeMovile">
-        <div class="user__name__container">
-            <div class="user__profile">
-                <img src="../../assets/add-user.png" alt="">
-                <div>
-                    <p class="nav__name">{{userDecoded.user.name}} {{userDecoded.user.lastName}}</p>
-                    <p class="nav__rol">{{userDecoded.user.createdAt.substr(0, 10)}}</p>
-                    <p class="nav__rol">Rol: {{userDecoded.user.rol}}</p>
-                </div>
-            </div>
+  <div class="aside" [ngClass]="activeMovile">
+    <div class="user__name__container">
+      <div class="user__profile">
+        <img src="../../assets/add-user.png" alt="" />
+        <div>
+          <p class="nav__name">{{ userDecoded.user.name }} {{ userDecoded.user.lastName }}</p>
+          <p class="nav__rol">{{ userDecoded.user.createdAt.substr(0, 10) }}</p>
+          <p class="nav__rol">Rol: {{ userDecoded.user.rol }}</p>
         </div>
-        <ul class="aside__ul">
-            <div class="ul__items" routerLink="/home/users" routerLinkActive="active">
-                <i class="fas fa-user"></i>
-                <li>Users</li>
-            </div>
-            <div class="ul__items" routerLink="/home/meals" routerLinkActive="active">
-                <i class="fas fa-hamburger"></i>
-                <li>Meals</li>
-            </div>
-            <div class="ul__items" routerLink="/home/restaurants" routerLinkActive="active">
-                <i class="fas fa-utensils"></i>
-                <li>Restaurants</li>
-            </div>
-        </ul>
+      </div>
     </div>
-    <div class="content">
-        <router-outlet></router-outlet>
-    </div>
+    <ul class="aside__ul">
+      <div class="ul__items" routerLink="/home/users" routerLinkActive="active">
+        <i class="fas fa-user"></i>
+        <li>Users</li>
+      </div>
+      <div class="ul__items" routerLink="/home/meals" routerLinkActive="active">
+        <i class="fas fa-hamburger"></i>
+        <li>Meals</li>
+      </div>
+      <div class="ul__items" routerLink="/home/restaurants" routerLinkActive="active">
+        <i class="fas fa-utensils"></i>
+        <li>Restaurants</li>
+      </div>
+    </ul>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

@@ -5,27 +5,24 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  userDecoded; //user logeado actualmente
 
-  userDecoded//user logeado actualmente
+  activeMovile;
 
-  activeMovile
-
-  constructor(public authService: AuthService, private router:Router) { }
-
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.userDecoded = this.authService.getUserLoged()
+    this.userDecoded = this.authService.getUserLoged();
   }
 
-
-  changeClass(){
-    if(this.activeMovile === ''){
-      this.activeMovile = 'active'
-    }else{
-      this.activeMovile = ''
+  changeClass() {
+    if (this.activeMovile === '') {
+      this.activeMovile = 'active';
+    } else {
+      this.activeMovile = '';
     }
   }
 }

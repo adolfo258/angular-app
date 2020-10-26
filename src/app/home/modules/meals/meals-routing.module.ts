@@ -4,12 +4,13 @@ import { MealsComponent } from './meals.component';
 
 const routes: Routes = [
   {
-    path:'', component: MealsComponent
-  }
+    path: '',
+    component: MealsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MealsRoutingModule { }
+export class MealsRoutingModule {}

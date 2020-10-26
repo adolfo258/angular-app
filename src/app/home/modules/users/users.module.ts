@@ -6,7 +6,6 @@ import { UsersComponent } from './users.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-
 @NgModule({
   declarations: [UsersComponent],
   imports: [
@@ -14,7 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UsersRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
-  ]
+    NgxPaginationModule,
+  ],
 })
-export class UsersModule { }
+export class UsersModule {}

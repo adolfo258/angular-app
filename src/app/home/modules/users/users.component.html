@@ -1,76 +1,154 @@
 <div class="user__component__container">
-    <div class="container">
-        <div class="btn__content">
-            <button class="newUser" (click)="changeClassForm('active')">Crear nuevo usuario</button> 
-            <button class="deleteAll" (click)="deleteAllUsers()">Borrar toda la lista</button>
-        </div>
-        <div class="card__container" *ngFor="let user of allUsers | paginate: { itemsPerPage: 2, currentPage: p }">
-            <form (ngSubmit)="changeAvatar(user._id)">
-                <input type="file" name="avatar" [disabled]="checkAvatarChange(user._id)" (change)="avatarSelected($event)">
-                <button type="submit" [disabled]="checkAvatarChange(user._id)">Cambiar avatar</button>
-            </form>
-            <div class="card">
-                <div class="card__profile">
-                    <div>
-                        <img [src]="user.avatar? 'http://localhost:3000/' + user.avatar : '../../../../assets/add-user.png'" alt="">
-                    </div>
-                    <div class="img__info">
-                        <p class="profile__name"><strong>{{user.name}} {{user.lastName}}</strong></p>
-                        <p class="profile__rol">{{user.createdAt.substr(0, 10)}}</p>
-                        <p class="profile__rol"><strong>Rol: </strong>{{user.rol}}</p>
-                        <div class="profile__btn__container">
-                            <button class="btn edit" (click)="editUser(user)">Edit</button>
-                            <button class="btn delete" (click)="deleteUser(user._id)">Delete</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card__info">
-                    <div class="info__item">
-                        <p><strong>DNI:</strong></p>
-                        <p>{{user.dni}}</p>
-                    </div>
-                    <div class="info__item">
-                        <p><strong>Email:</strong></p>
-                        <p>{{user.email}}</p>
-                    </div>
-                    <div class="info__item">
-                        <p><strong>Nacimiento:</strong></p>
-                        <p>{{user.fec_nac}}</p>
-                    </div>
-                    <div class="info__item">
-                        <p><strong>Sexo:</strong></p>
-                        <p>{{user.sex}}</p>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="search__container">
+      <input type="text" placeholder="Buscar..." (input)="searchUsers($event)" />
+    </div>
+    <div class="btn__content">
+      <button class="newUser" (click)="changeClassForm('active')">Crear nuevo usuario</button>
+      <button class="deleteAll" (click)="deleteAllUsers()">Borrar toda la lista</button>
+    </div>
+    <div
+      class="card__container"
+      *ngFor="let user of allUsers | paginate: { itemsPerPage: 2, currentPage: p }"
+    >
+      <form (ngSubmit)="changeAvatar(user._id)">
+        <input
+          type="file"
+          name="avatar"
+          [disabled]="checkAvatarChange(user._id)"
+          (change)="avatarSelected($event)"
+        />
+        <button type="submit" [disabled]="checkAvatarChange(user._id)">Cambiar avatar</button>
+      </form>
+      <div class="card">
+        <div class="card__profile">
+          <div>
+            <img
+              [src]="
+                user.avatar
+                  ? 'http://localhost:3000/' + user.avatar
+                  : '../../../../assets/add-user.png'
+              "
+              alt=""
+            />
+          </div>
+          <div class="img__info">
+            <p class="profile__name">
+              <strong>{{ user.name }} {{ user.lastName }}</strong>
+            </p>
+            <p class="profile__rol">{{ user.createdAt.substr(0, 10) }}</p>
+            <p class="profile__rol"><strong>Rol: </strong>{{ user.rol }}</p>
+            <div class="profile__btn__container">
+              <button class="btn edit" (click)="editUser(user)">Edit</button>
+              <button class="btn delete" (click)="deleteUser(user._id)">Delete</button>
             </div>
+          </div>
         </div>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <div class="card__info">
+          <div class="info__item">
+            <p><strong>DNI:</strong></p>
+            <p>{{ user.dni }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Email:</strong></p>
+            <p>{{ user.email }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Nacimiento:</strong></p>
+            <p>{{ user.fec_nac }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Sexo:</strong></p>
+            <p>{{ user.sex }}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <div class="form__container" [ngClass]="activeFormClass">
-        <form class="form" [formGroup]="createdUser" (ngSubmit)="createOrEditUser(userSelected)">
-            <p class="register__title">{{userSelected? 'Editar Usuario' : 'Crear Usuario'}}</p>
-            <input type="text" class="input" name="name" placeholder="Nombre" formControlName="name" (keydown.space)="$event.preventDefault()">
-            <input type="text" class="input" name="lastName" placeholder="Apellido" formControlName="lastName" (keydown.space)="$event.preventDefault()">
-            <input type="text" class="input" name="dni" placeholder="DNI" maxlength="8" formControlName="dni" (keydown.space)="$event.preventDefault()">
-            <input type="date" max="2020-01-01" class="input" name="fec_nac" placeholder="Fecha de nacimiento" formControlName="fec_nac" (keydown.space)="$event.preventDefault()">
-            <select type="text" class="input" name="sex" formControlName="sex">
-                <option  disabled value="">Sexo</option>
-                <option value="masculino">Masculino</option>
-                <option value="femenino">Femenino</option>
-            </select>
-            <input type="password" class="input" name="password" placeholder="Contraseña" formControlName="password" (keydown.space)="$event.preventDefault()" [attr.disabled]="userSelected? '' : null">
-            <input type="text" class="input" name="email" placeholder="Email" formControlName="email" (keydown.space)="$event.preventDefault()">
-            <select type="text" class="input" name="email" formControlName="rol" (keydown.space)="$event.preventDefault()">
-                <option disabled value="">Rol</option>
-                <option value="admin" [disabled]="checkRole(['admin'])">Admin</option>
-                <option value="restaurant_manager" [disabled]="checkRole(['admin'])" >Restaurant Manager</option>
-                <option value="meals_manager" [disabled]="checkRole(['admin', 'restaurant_manager'])" >Meals manager</option>
-                <option value="user">User</option>
-            </select>
-            <button class="btn__login" type="submit" >{{userSelected? 'Editar' : 'Crear'}}</button>
-            <button class="btn__login close" (click)="changeClassForm('')" type="button">Cerrar</button>
-        </form>
-    </div>
-</div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
 
+  <div class="form__container" [ngClass]="activeFormClass">
+    <form class="form" [formGroup]="createdUser" (ngSubmit)="createOrEditUser(userSelected)">
+      <p class="register__title">
+        {{ userSelected ? "Editar Usuario" : "Crear Usuario" }}
+      </p>
+      <input
+        type="text"
+        class="input"
+        name="name"
+        placeholder="Nombre"
+        formControlName="name"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <input
+        type="text"
+        class="input"
+        name="lastName"
+        placeholder="Apellido"
+        formControlName="lastName"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <input
+        type="text"
+        class="input"
+        name="dni"
+        placeholder="DNI"
+        maxlength="8"
+        formControlName="dni"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <input
+        type="date"
+        max="2020-01-01"
+        class="input"
+        name="fec_nac"
+        placeholder="Fecha de nacimiento"
+        formControlName="fec_nac"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <select type="text" class="input" name="sex" formControlName="sex">
+        <option disabled value="">Sexo</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+      </select>
+      <input
+        type="password"
+        class="input"
+        name="password"
+        placeholder="Contraseña"
+        formControlName="password"
+        (keydown.space)="$event.preventDefault()"
+        [attr.disabled]="userSelected ? '' : null"
+      />
+      <input
+        type="text"
+        class="input"
+        name="email"
+        placeholder="Email"
+        formControlName="email"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <select
+        type="text"
+        class="input"
+        name="email"
+        formControlName="rol"
+        (keydown.space)="$event.preventDefault()"
+      >
+        <option disabled value="">Rol</option>
+        <option value="admin" [disabled]="checkRole(['admin'])">Admin</option>
+        <option value="restaurant_manager" [disabled]="checkRole(['admin'])">
+          Restaurant Manager
+        </option>
+        <option value="meals_manager" [disabled]="checkRole(['admin', 'restaurant_manager'])">
+          Meals manager
+        </option>
+        <option value="user">User</option>
+      </select>
+      <button class="btn__login" type="submit">
+        {{ userSelected ? "Editar" : "Crear" }}
+      </button>
+      <button class="btn__login close" (click)="changeClassForm('')" type="button">Cerrar</button>
+    </form>
+  </div>
+</div>
