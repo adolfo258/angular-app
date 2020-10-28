@@ -19,7 +19,7 @@
   <div class="aside" [ngClass]="activeMovile">
     <div class="user__name__container">
       <div class="user__profile">
-        <img src="../../assets/add-user.png" alt="" />
+        <img [src]="'http://localhost:3000/' + userDecoded.user.avatar" alt="" />
         <div>
           <p class="nav__name">{{ userDecoded.user.name }} {{ userDecoded.user.lastName }}</p>
           <p class="nav__rol">{{ userDecoded.user.createdAt.substr(0, 10) }}</p>
@@ -32,13 +32,13 @@
         <i class="fas fa-user"></i>
         <li>Users</li>
       </div>
-      <div class="ul__items" routerLink="/home/meals" routerLinkActive="active">
-        <i class="fas fa-hamburger"></i>
-        <li>Meals</li>
-      </div>
       <div class="ul__items" routerLink="/home/restaurants" routerLinkActive="active">
         <i class="fas fa-utensils"></i>
         <li>Restaurants</li>
+      </div>
+      <div class="ul__items" routerLink="/home/meals" routerLinkActive="active">
+        <i class="fas fa-hamburger"></i>
+        <li>Meals</li>
       </div>
     </ul>
   </div>

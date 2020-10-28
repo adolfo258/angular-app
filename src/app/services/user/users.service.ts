@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -9,12 +10,16 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  searchUserService(params) {
+  searchUserService(params): Observable<any> {
     return this.http.get(`${this.url}/user/${params}`);
   }
 
   getUsers() {
     return this.http.get(`${this.url}/user`);
+  }
+
+  getManagerUsers(): Observable<any> {
+    return this.http.get(`${this.url}/user/managers/all`);
   }
 
   deleteUser(id: string) {

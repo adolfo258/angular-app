@@ -10,7 +10,7 @@
 
   .title__container {
     img {
-      width: 50px;
+      width: 70px;
     }
 
     h2 {
@@ -57,7 +57,7 @@
   min-height: calc(100vh - 60px);
 
   .aside {
-    width: 250px;
+    width: 300px;
     background-color: #252525;
     transition: 0.5s;
 
@@ -72,10 +72,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 190px;
+        width: 235px;
 
         img {
-          width: 60px;
+          width: 70px;
+          height: 70px;
           border-radius: 3px;
         }
 

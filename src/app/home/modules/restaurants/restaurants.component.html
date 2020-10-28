@@ -1,31 +1,144 @@
-<div class="card__container">
-  <div class="card">
-    <div class="card__profile">
-      <div>
-        <img src="../../../../assets/restaurant.jpg" alt="" />
-      </div>
-      <div class="img__info">
-        <p class="profile__name"><strong>Blackness</strong></p>
-        <p class="profile__rol">Fumadores: Si</p>
-        <div class="profile__btn__container">
-          <button class="btn edit">Edit</button>
-          <button class="btn delete">Delete</button>
+<div class="user__component__container">
+  <div class="container">
+    <div class="search__container">
+      <input type="text" placeholder="Buscar..." (input)="searchRestaurant($event)" />
+    </div>
+    <div class="btn__content">
+      <button class="newUser" (click)="changeClassForm('active')">Crear nuevo Restaurante</button>
+      <button class="deleteAll" (click)="deleteAllRestaurants()">Borrar toda la lista</button>
+    </div>
+    <div
+      class="card__container"
+      *ngFor="let restaurant of allRestaurants | paginate: { itemsPerPage: 2, currentPage: p }"
+    >
+      <form (ngSubmit)="changeAvatar(restaurant._id)">
+        <input
+          type="file"
+          name="avatar"
+          [disabled]="checkAvatarChange(restaurant)"
+          (change)="avatarSelected($event)"
+        />
+        <button type="submit" [disabled]="checkAvatarChange(restaurant)">Cambiar avatar</button>
+      </form>
+      <div class="card">
+        <div class="card__profile">
+          <div>
+            <img
+              [src]="
+                restaurant.avatar
+                  ? 'http://localhost:3000/' + restaurant.avatar
+                  : '../../../../assets/add-user.png'
+              "
+              alt=""
+            />
+          </div>
+          <div class="img__info">
+            <p class="profile__name">
+              <strong>{{ restaurant.name }}</strong>
+            </p>
+            <p class="profile__rol">{{ restaurant.createdAt.substr(0, 10) }}</p>
+            <div class="profile__btn__container">
+              <button
+                class="btn edit"
+                [disabled]="checkAvatarChange(restaurant)"
+                (click)="editRestaurant(restaurant)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn delete"
+                [disabled]="checkAvatarChange(restaurant)"
+                (click)="deleteRestaurant(restaurant._id)"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card__info">
+          <div class="info__item">
+            <p><strong>Fumadores:</strong></p>
+            <p>{{ restaurant.smoke }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Lat/Long:</strong></p>
+            <p>{{ restaurant.lat }}/{{ restaurant.long }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Cuit:</strong></p>
+            <p>{{ restaurant.cuit }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Manager ID:</strong></p>
+            <p>{{ restaurant.managerId.substr(0, 10) + "..." }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Meals:</strong></p>
+            <p>{{ restaurant.meals }}</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card__info">
-      <div class="info__item">
-        <p><strong>Cuit:</strong></p>
-        <p>27-37525727-9</p>
-      </div>
-      <div class="info__item">
-        <p><strong>Latitud:</strong></p>
-        <p>25.452</p>
-      </div>
-      <div class="info__item">
-        <p><strong>Longitud:</strong></p>
-        <p>75.521</p>
-      </div>
-    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+
+  <div class="form__container" [ngClass]="activeFormClass">
+    <form
+      class="form"
+      [formGroup]="createdRestaurant"
+      (ngSubmit)="createOrEditRestaurant(restaurantSelected)"
+    >
+      <p class="register__title">
+        {{ restaurantSelected ? "Editar Restaurante" : "Crear Restaurante" }}
+      </p>
+      <input
+        type="text"
+        class="input"
+        name="name"
+        placeholder="Nombre"
+        formControlName="name"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <input
+        type="text"
+        class="input"
+        maxlength="13"
+        name="cuit"
+        placeholder="Cuit"
+        formControlName="cuit"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <input
+        type="text"
+        class="input"
+        name="lat"
+        placeholder="Latitud"
+        formControlName="lat"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <input
+        type="text"
+        class="input"
+        name="long"
+        placeholder="Longitud"
+        formControlName="long"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <select type="text" class="input" name="smoke" formControlName="smoke">
+        <option disabled value="">Fumadores?</option>
+        <option value="Si fumadores">SI</option>
+        <option value="No fumadores">NO</option>
+      </select>
+      <select type="text" class="input" name="manager" formControlName="managerId">
+        <option value="" disabled>Seleccione un manager</option>
+        <option value="{{ user._id }}" *ngFor="let user of allUsersManagers">
+          {{ user.name }} {{ user.lastName }}
+        </option>
+      </select>
+      <button class="btn__login" type="submit">
+        {{ restaurantSelected ? "Editar" : "Crear" }}
+      </button>
+      <button class="btn__login close" (click)="changeClassForm('')" type="button">Cerrar</button>
+    </form>
   </div>
 </div>

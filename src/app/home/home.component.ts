@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../services/auth/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
   userDecoded; //user logeado actualmente
@@ -19,10 +19,10 @@ export class HomeComponent implements OnInit {
   }
 
   changeClass() {
-    if (this.activeMovile === '') {
-      this.activeMovile = 'active';
+    if (this.activeMovile === "") {
+      this.activeMovile = "active";
     } else {
-      this.activeMovile = '';
+      this.activeMovile = "";
     }
   }
 }
