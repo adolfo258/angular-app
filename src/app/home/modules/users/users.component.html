@@ -39,8 +39,20 @@
             <p class="profile__rol">{{ user.createdAt.substr(0, 10) }}</p>
             <p class="profile__rol"><strong>Rol: </strong>{{ user.rol }}</p>
             <div class="profile__btn__container">
-              <button class="btn edit" (click)="editUser(user)">Edit</button>
-              <button class="btn delete" (click)="deleteUser(user._id)">Delete</button>
+              <button
+                class="btn edit"
+                [disabled]="checkAvatarChange(user._id)"
+                (click)="editUser(user)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn delete"
+                [disabled]="checkAvatarChange(user._id)"
+                (click)="deleteUser(user._id)"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>

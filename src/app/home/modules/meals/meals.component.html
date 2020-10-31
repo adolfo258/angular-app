@@ -1,31 +1,122 @@
-<div class="card__container">
-  <div class="card">
-    <div class="card__profile">
-      <div>
-        <img src="../../../../assets/comida.jpg" alt="" />
-      </div>
-      <div class="img__info">
-        <p class="profile__name"><strong>Pollo ahumado</strong></p>
-        <p class="profile__rol">Veggie: No</p>
-        <div class="profile__btn__container">
-          <button class="btn edit">Edit</button>
-          <button class="btn delete">Delete</button>
+<div class="user__component__container">
+  <div class="container">
+    <div class="search__container">
+      <input type="text" placeholder="Buscar..." (input)="searchMeal($event)" />
+    </div>
+    <div class="btn__content">
+      <button class="newUser" (click)="changeClassForm('active')">Crear nueva comida</button>
+      <button class="deleteAll" (click)="deleteAllMeals()">Borrar toda la lista</button>
+    </div>
+    <div
+      class="card__container"
+      *ngFor="let meal of allMeals | paginate: { itemsPerPage: 2, currentPage: p }"
+    >
+      <form (ngSubmit)="changeAvatar(meal)">
+        <input
+          type="file"
+          name="avatar"
+          [disabled]="checkAvatarChange(meal)"
+          (change)="avatarSelected($event)"
+        />
+        <button type="submit" [disabled]="checkAvatarChange(meal)">Cambiar avatar</button>
+      </form>
+      <div class="card">
+        <div class="card__profile">
+          <div>
+            <img
+              [src]="
+                meal.avatar
+                  ? 'http://localhost:3000/' + meal.avatar
+                  : '../../../../assets/add-user.png'
+              "
+              alt=""
+            />
+          </div>
+          <div class="img__info">
+            <p class="profile__name">
+              <strong>{{ meal.name }}</strong>
+            </p>
+            <p class="profile__rol">{{ meal.createdAt.substr(0, 10) }}</p>
+            <div class="profile__btn__container">
+              <button
+                class="btn edit"
+                (click)="editMeal(meal)"
+                [disabled]="checkAvatarChange(meal)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn delete"
+                (click)="deleteMeal(meal._id)"
+                [disabled]="checkAvatarChange(meal)"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card__info">
+          <div class="info__item">
+            <p><strong>Gusto:</strong></p>
+            <p>{{ meal.taste }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Origen:</strong></p>
+            <p>{{ meal.origin }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Veggie:</strong></p>
+            <p>{{ meal.veggie }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Manager:</strong></p>
+            <p>{{ meal.manager.name }} {{ meal.manager.lastName }}</p>
+          </div>
+          <div class="info__item">
+            <p><strong>Restaurantes:</strong></p>
+            <p></p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card__info">
-      <div class="info__item">
-        <p><strong>Gusto:</strong></p>
-        <p>Salado</p>
-      </div>
-      <div class="info__item">
-        <p><strong>Origen:</strong></p>
-        <p>Italiano</p>
-      </div>
-      <div class="info__item">
-        <p><strong>Restorantes:</strong></p>
-        <p class="restaurants">Blackness<br />Jacinto</p>
-      </div>
-    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+
+  <div class="form__container" [ngClass]="activeFormClass">
+    <form class="form" [formGroup]="createdMeal" (ngSubmit)="createOrEditMeal(mealSelected)">
+      <p class="register__title">
+        {{ mealSelected ? "Editar Comida" : "Crear Comida" }}
+      </p>
+      <input type="text" class="input" name="name" placeholder="Nombre" formControlName="name" />
+      <input
+        type="text"
+        class="input"
+        name="origin"
+        placeholder="Origen"
+        formControlName="origin"
+        (keydown.space)="$event.preventDefault()"
+      />
+      <select type="text" class="input" name="taste" formControlName="taste">
+        <option disabled value="">Gusto</option>
+        <option value="dulce">Dulce</option>
+        <option value="salado">Salado</option>
+        <option value="agridulce">Agridulce</option>
+      </select>
+      <select type="text" class="input" name="veggie" formControlName="veggie">
+        <option disabled value="">Vegetariano?</option>
+        <option value="Si">Si</option>
+        <option value="No">No</option>
+      </select>
+      <select type="text" class="input" name="veggie" formControlName="manager">
+        <option disabled value="">Meal managers</option>
+        <option value="{{ user._id }}" *ngFor="let user of allMealManagers">
+          {{ user.name }} {{ user.lastName }}
+        </option>
+      </select>
+      <button class="btn__login" type="submit">
+        {{ mealSelected ? "Editar" : "Crear" }}
+      </button>
+      <button class="btn__login close" (click)="changeClassForm('')" type="button">Cerrar</button>
+    </form>
   </div>
 </div>

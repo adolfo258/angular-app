@@ -69,8 +69,8 @@
             <p>{{ restaurant.cuit }}</p>
           </div>
           <div class="info__item">
-            <p><strong>Manager ID:</strong></p>
-            <p>{{ restaurant.managerId.substr(0, 10) + "..." }}</p>
+            <p><strong>Manager:</strong></p>
+            <p>{{ restaurant.managerId.name }} {{ restaurant.managerId.lastName }}</p>
           </div>
           <div class="info__item">
             <p><strong>Meals:</strong></p>

@@ -19,7 +19,11 @@ export class UsersService {
   }
 
   getManagerUsers(): Observable<any> {
-    return this.http.get(`${this.url}/user/managers/all`);
+    return this.http.get(`${this.url}/user/managers/restaurants`);
+  }
+
+  getMealManagerUsers(): Observable<any> {
+    return this.http.get(`${this.url}/user/managers/meals`);
   }
 
   deleteUser(id: string) {

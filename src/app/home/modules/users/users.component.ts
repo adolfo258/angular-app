@@ -53,7 +53,6 @@ export class UsersComponent implements OnInit {
     this.activeFormClass = clase;
     this.userSelected = null;
     this.createdUser.patchValue({
-      _id: "",
       name: "",
       lastName: "",
       dni: "",

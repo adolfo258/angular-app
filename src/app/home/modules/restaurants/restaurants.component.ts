@@ -49,7 +49,6 @@ export class RestaurantsComponent implements OnInit {
     this.getRestaurants();
 
     this.userLoged = this.homeComponent.userDecoded.user;
-    console.log(this.userLoged);
 
     this.getManagerUsers();
   }
@@ -60,6 +59,7 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantSelected = null;
     this.createdRestaurant.patchValue({
       _id: "",
+      name: "",
       smoke: "",
       lat: "",
       long: "",
@@ -91,7 +91,7 @@ export class RestaurantsComponent implements OnInit {
   checkAvatarChange(restaurant) {
     const userRol = this.userLoged.rol;
     const userId = this.userLoged._id;
-    const managerId = restaurant.managerId;
+    const managerId = restaurant.managerId._id;
 
     if (userRol === "admin") {
       return false;
@@ -113,7 +113,9 @@ export class RestaurantsComponent implements OnInit {
 
   getRestaurants() {
     this.restaurantService.getRestaurants().subscribe(
-      res => (this.allRestaurants = res),
+      res => {
+        this.allRestaurants = res;
+      },
       err => console.log(err)
     );
   }
