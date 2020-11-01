@@ -37,21 +37,38 @@
               <strong>{{ restaurant.name }}</strong>
             </p>
             <p class="profile__rol">{{ restaurant.createdAt.substr(0, 10) }}</p>
-            <div class="profile__btn__container">
-              <button
-                class="btn edit"
-                [disabled]="checkAvatarChange(restaurant)"
-                (click)="editRestaurant(restaurant)"
-              >
-                Edit
-              </button>
-              <button
-                class="btn delete"
-                [disabled]="checkAvatarChange(restaurant)"
-                (click)="deleteRestaurant(restaurant._id)"
-              >
-                Delete
-              </button>
+            <div>
+              <div class="profile__btn__container">
+                <button
+                  class="btn edit"
+                  [disabled]="checkAvatarChange(restaurant)"
+                  (click)="editRestaurant(restaurant)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="btn delete"
+                  [disabled]="checkAvatarChange(restaurant)"
+                  (click)="deleteRestaurant(restaurant._id)"
+                >
+                  Delete
+                </button>
+              </div>
+              <form [formGroup]="selectedMeal" (ngSubmit)="addMealToRestaurant(restaurant)">
+                <select class="add__btn" name="meals" formControlName="meals">
+                  <option disabled selected value="">Agregar comida</option>
+                  <option
+                    [disabled]="checkAvatarChange(restaurant)"
+                    value="{{ meal._id }}"
+                    *ngFor="let meal of allMeals"
+                  >
+                    {{ meal.name }}
+                  </option>
+                </select>
+                <button class="add__btn" type="submit" [disabled]="checkAvatarChange(restaurant)">
+                  Agregar
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -74,7 +91,10 @@
           </div>
           <div class="info__item">
             <p><strong>Meals:</strong></p>
-            <p>{{ restaurant.meals }}</p>
+            <div class="meals__item" *ngFor="let meal of restaurant.meals">
+              <p>{{ meal.name }}</p>
+              <button (click)="removeMealFromRestaurant(restaurant, meal._id)">X</button>
+            </div>
           </div>
         </div>
       </div>

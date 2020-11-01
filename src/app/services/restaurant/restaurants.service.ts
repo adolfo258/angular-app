@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { IRestaurant } from "src/app/Interfaces/restaurant";
+import { IMeal } from "src/app/Interfaces/meal";
 
 @Injectable({
   providedIn: "root",
@@ -31,8 +32,16 @@ export class RestaurantsService {
     return this.http.delete<IRestaurant[]>(`${this.url}/restaurant`);
   }
 
-  editRestaurantService(user, id): Observable<IRestaurant> {
-    return this.http.put<IRestaurant>(`${this.url}/restaurant/${id}`, user);
+  editRestaurantService(restaurant, id): Observable<IRestaurant> {
+    return this.http.put<IRestaurant>(`${this.url}/restaurant/${id}`, restaurant);
+  }
+
+  pushMeal(meal, id): Observable<IRestaurant> {
+    return this.http.put<IRestaurant>(`${this.url}/restaurant/addmeal/${id}`, meal);
+  }
+
+  removeMealFromRestaurant(mealId, id): Observable<IRestaurant> {
+    return this.http.put<IRestaurant>(`${this.url}/restaurant/removemeal/${id}`, mealId);
   }
 
   uploadAvatar(avatar: File, id): Observable<IRestaurant> {

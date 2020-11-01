@@ -109,7 +109,7 @@ export class MealsComponent implements OnInit {
     );
   }
 
-  getMeals(): void {
+  getMeals() {
     this.mealService.getMeals().subscribe(
       res => {
         this.allMeals = res;

@@ -31,8 +31,8 @@ export class MealsService {
     return this.http.delete<IMeal[]>(`${this.url}/meal`);
   }
 
-  editMealService(user, id): Observable<IMeal> {
-    return this.http.put<IMeal>(`${this.url}/meal/${id}`, user);
+  editMealService(meal: IMeal, id): Observable<IMeal> {
+    return this.http.put<IMeal>(`${this.url}/meal/${id}`, meal);
   }
 
   uploadAvatar(avatar: File, id): Observable<IMeal> {

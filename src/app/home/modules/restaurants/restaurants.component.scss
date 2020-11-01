@@ -81,8 +81,7 @@
       .profile__btn__container {
         margin-top: 20px;
         display: flex;
-        width: 120px;
-        justify-content: space-between;
+        justify-content: space-around;
 
         .btn {
           cursor: pointer;
@@ -100,6 +99,14 @@
           background-color: #3498db;
         }
       }
+
+      .add__btn {
+        margin-top: 5px;
+        width: 100%;
+        padding: 2px;
+        border: none;
+        cursor: pointer;
+      }
     }
   }
 
@@ -111,6 +118,22 @@
       display: flex;
       justify-content: space-between;
       padding: 3px 0;
+
+      .meals__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        button {
+          border: none;
+          padding: 4px;
+          background-color: #cb4335;
+          color: #fff;
+          cursor: pointer;
+          margin-left: 5px;
+          border-radius: 5px;
+        }
+      }
     }
   }
 }

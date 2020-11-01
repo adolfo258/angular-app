@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
+import { IMeal } from "src/app/Interfaces/meal";
 import { IRestaurant } from "src/app/Interfaces/restaurant";
 import { IUser } from "src/app/Interfaces/user";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { MealsService } from "src/app/services/meal/meals.service";
 import { RestaurantsService } from "src/app/services/restaurant/restaurants.service";
 import { UsersService } from "src/app/services/user/users.service";
 import { HomeComponent } from "../../home.component";
@@ -29,12 +31,17 @@ export class RestaurantsComponent implements OnInit {
 
   allUsersManagers: IUser[]; // todos los usuarios que son "restaurant_manager"
 
+  selectedMeal: FormGroup; //comida seleccionada para agregar a un restaurant
+
+  allMeals: IMeal[];
+
   constructor(
     public restaurantService: RestaurantsService,
     public authService: AuthService,
     public homeComponent: HomeComponent,
     private formBuilder: FormBuilder,
-    public userService: UsersService
+    public userService: UsersService,
+    public mealService: MealsService
   ) {
     this.createdRestaurant = this.formBuilder.group({
       name: ["", Validators.required],
@@ -45,9 +52,17 @@ export class RestaurantsComponent implements OnInit {
       managerId: ["", Validators.required],
       avatar: "",
     });
+
+    this.selectedMeal = formBuilder.group({
+      meals: ["", Validators.required],
+    });
   }
 
   ngOnInit(): void {
+    this.mealService.getMeals().subscribe(
+      res => (this.allMeals = res),
+      err => console.log(err)
+    );
     this.getRestaurants();
 
     this.userLoged = this.homeComponent.userDecoded.user;
@@ -70,6 +85,21 @@ export class RestaurantsComponent implements OnInit {
       managerId: "",
       avatar: "",
     });
+  }
+
+  addMealToRestaurant(restaurant: IRestaurant): void {
+    this.restaurantService.pushMeal(this.selectedMeal.value, restaurant._id).subscribe(
+      res => this.getRestaurants(),
+      err => console.log(err)
+    );
+  }
+
+  removeMealFromRestaurant(restaurant: IRestaurant, mealId) {
+    const mealID = { mealId };
+    this.restaurantService.removeMealFromRestaurant(mealID, restaurant._id).subscribe(
+      res => this.getRestaurants(),
+      err => console.log(err)
+    );
   }
 
   avatarSelected(event): void {
@@ -175,7 +205,7 @@ export class RestaurantsComponent implements OnInit {
     );
   }
 
-  createOrEditRestaurant(restaurant?: IRestaurant): void {
+  createOrEditRestaurant(restaurant?): void {
     //CREAR NUEVO RESTAURANT
     if (!restaurant) {
       if (this.createdRestaurant.valid) {
