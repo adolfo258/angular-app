@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { IMeal } from "src/app/Interfaces/meal";
+import { IUser } from "src/app/Interfaces/user";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { MealsService } from "src/app/services/meal/meals.service";
 import { UsersService } from "../../../services/user/users.service";
@@ -11,21 +13,21 @@ import { HomeComponent } from "../../home.component";
   styleUrls: ["./meals.component.scss"],
 })
 export class MealsComponent implements OnInit {
-  allMeals; //array con todos los meals
+  allMeals: IMeal[]; //array con todos los meals
 
-  activeFormClass; //variable para mostrar o ocultar formulario
+  activeFormClass: string; //variable para mostrar o ocultar formulario
 
   createdMeal: FormGroup; //datos del formulario al ser enviado
 
   p: number = 1; //paginador
 
-  userLoged; //usuario que inicio session
+  userLoged: IUser; //usuario que inicio session
 
-  mealSelected; //meal selecionado para editarlo y mostrarlo en el form
+  mealSelected: IMeal; //meal selecionado para editarlo y mostrarlo en el form
 
   avatar: File;
 
-  allMealManagers; // todos los usuarios que son "restaurant_manager"
+  allMealManagers: IUser[]; // todos los usuarios que son "restaurant_manager"
 
   constructor(
     public authService: AuthService,
@@ -52,7 +54,7 @@ export class MealsComponent implements OnInit {
     this.getManagerUsers();
   }
 
-  changeClassForm(clase) {
+  changeClassForm(clase: string) {
     //reseteo los valores del userSelected y del formulario cada vez que lo abro o lo cierro
     this.activeFormClass = clase;
     this.mealSelected = null;
@@ -72,19 +74,19 @@ export class MealsComponent implements OnInit {
     }
   }
 
-  changeAvatar(meal) {
+  changeAvatar(meal: IMeal): void {
     this.mealService.uploadAvatar(this.avatar, meal._id).subscribe(
       res => this.getMeals(),
       err => console.log(err)
     );
   }
 
-  checkRole(roles) {
+  checkRole(roles): boolean {
     return this.authService.checkRole(roles, this.userLoged);
   }
 
   //verificacion para borrar editar, solo el admin puede hacer todo y luego solo cada manager puede manejar su restaurant
-  checkAvatarChange(meal) {
+  checkAvatarChange(meal: IMeal): boolean {
     const userRol = this.userLoged.rol;
     const userId = this.userLoged._id;
     const mealmanagerId = meal.manager._id;
@@ -98,16 +100,16 @@ export class MealsComponent implements OnInit {
     }
   }
 
-  getManagerUsers() {
+  getManagerUsers(): void {
     this.userService.getMealManagerUsers().subscribe(
       res => {
-        this.allMealManagers = res.users;
+        this.allMealManagers = res;
       },
       err => console.log(err)
     );
   }
 
-  getMeals() {
+  getMeals(): void {
     this.mealService.getMeals().subscribe(
       res => {
         this.allMeals = res;
@@ -116,22 +118,23 @@ export class MealsComponent implements OnInit {
     );
   }
 
-  searchMeal(event) {
+  searchMeal(event): void {
     const params = event.target.value;
-
-    this.mealService.searchMealService(params).subscribe(
-      res => {
-        if (res.rest.length != 0) {
-          this.allMeals = res.rest;
-        } else {
-          this.getMeals();
-        }
-      },
-      err => console.log("not found")
-    );
+    if (params.length > 3) {
+      this.mealService.searchMealService(params).subscribe(
+        res => {
+          if (res.length != 0) {
+            this.allMeals = res;
+          } else {
+            this.getMeals();
+          }
+        },
+        err => console.log("not found")
+      );
+    }
   }
 
-  deleteMeal(id: string) {
+  deleteMeal(id: string): void {
     if (confirm("¿Estas seguro de querer borrar esta comida?")) {
       this.mealService.deleteMeal(id).subscribe(
         res => this.getMeals(),
@@ -143,7 +146,7 @@ export class MealsComponent implements OnInit {
     }
   }
 
-  deleteAllMeals() {
+  deleteAllMeals(): void {
     if (confirm("¿Estas seguro de querer borrar todos las comidas?")) {
       this.mealService.deleteAllMeals().subscribe(
         res => this.getMeals(),
@@ -155,20 +158,20 @@ export class MealsComponent implements OnInit {
     }
   }
 
-  editMeal(meal) {
+  editMeal(meal: IMeal): void {
     this.mealSelected = meal;
     this.activeFormClass = "active";
     this.createdMeal.patchValue(meal);
   }
 
-  uploadAvatar(meal) {
-    this.mealService.uploadAvatar(meal.avatar, meal.id).subscribe(
+  uploadAvatar(meal: IMeal): void {
+    this.mealService.uploadAvatar(meal.avatar, meal._id).subscribe(
       res => console.log(res),
       err => console.log(err)
     );
   }
 
-  createOrEditMeal(meal?) {
+  createOrEditMeal(meal?: IMeal): void {
     //CREAR NUEVO RESTAURANT
     if (!meal) {
       if (this.createdMeal.valid) {

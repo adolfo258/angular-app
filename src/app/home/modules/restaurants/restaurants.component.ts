@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { IRestaurant } from "src/app/Interfaces/restaurant";
+import { IUser } from "src/app/Interfaces/user";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { RestaurantsService } from "src/app/services/restaurant/restaurants.service";
 import { UsersService } from "src/app/services/user/users.service";
@@ -11,21 +13,21 @@ import { HomeComponent } from "../../home.component";
   styleUrls: ["./restaurants.component.scss"],
 })
 export class RestaurantsComponent implements OnInit {
-  allRestaurants; //array con todos los restaurants
+  allRestaurants: IRestaurant[]; //array con todos los restaurants
 
-  activeFormClass; //variable para mostrar o ocultar formulario
+  activeFormClass: string; //variable para mostrar o ocultar formulario
 
   createdRestaurant: FormGroup; //datos del formulario al ser enviado
 
   p: number = 1; //paginador
 
-  userLoged; //usuario que inicio session
+  userLoged: IUser; //usuario que inicio session
 
-  restaurantSelected; //usuario selecionado para editarlo y mostrarlo en el form
+  restaurantSelected: IRestaurant; //usuario selecionado para editarlo y mostrarlo en el form
 
   avatar: File;
 
-  allUsersManagers; // todos los usuarios que son "restaurant_manager"
+  allUsersManagers: IUser[]; // todos los usuarios que son "restaurant_manager"
 
   constructor(
     public restaurantService: RestaurantsService,
@@ -53,7 +55,7 @@ export class RestaurantsComponent implements OnInit {
     this.getManagerUsers();
   }
 
-  changeClassForm(clase) {
+  changeClassForm(clase): void {
     //reseteo los valores del userSelected y del formulario cada vez que lo abro o lo cierro
     this.activeFormClass = clase;
     this.restaurantSelected = null;
@@ -76,19 +78,19 @@ export class RestaurantsComponent implements OnInit {
     }
   }
 
-  changeAvatar(id) {
+  changeAvatar(id): void {
     this.restaurantService.uploadAvatar(this.avatar, id).subscribe(
       res => this.getRestaurants(),
       err => console.log(err)
     );
   }
 
-  checkRole(roles) {
+  checkRole(roles): boolean {
     return this.authService.checkRole(roles, this.userLoged);
   }
 
   //verificacion para borrar editar, solo el admin puede hacer todo y luego solo cada manager puede manejar su restaurant
-  checkAvatarChange(restaurant) {
+  checkAvatarChange(restaurant: IRestaurant): boolean {
     const userRol = this.userLoged.rol;
     const userId = this.userLoged._id;
     const managerId = restaurant.managerId._id;
@@ -102,16 +104,16 @@ export class RestaurantsComponent implements OnInit {
     }
   }
 
-  getManagerUsers() {
+  getManagerUsers(): void {
     this.userService.getManagerUsers().subscribe(
       res => {
-        this.allUsersManagers = res.users;
+        this.allUsersManagers = res;
       },
       err => console.log(err)
     );
   }
 
-  getRestaurants() {
+  getRestaurants(): void {
     this.restaurantService.getRestaurants().subscribe(
       res => {
         this.allRestaurants = res;
@@ -120,22 +122,23 @@ export class RestaurantsComponent implements OnInit {
     );
   }
 
-  searchRestaurant(event) {
+  searchRestaurant(event): void {
     const params = event.target.value;
-
-    this.restaurantService.searchRestaurantService(params).subscribe(
-      res => {
-        if (res.rest.length != 0) {
-          this.allRestaurants = res.rest;
-        } else {
-          this.getRestaurants();
-        }
-      },
-      err => console.log(err)
-    );
+    if (params.length > 3) {
+      this.restaurantService.searchRestaurantService(params).subscribe(
+        res => {
+          if (res.length != 0) {
+            this.allRestaurants = res;
+          } else {
+            this.getRestaurants();
+          }
+        },
+        err => console.log(err)
+      );
+    }
   }
 
-  deleteRestaurant(id: string) {
+  deleteRestaurant(id: string): void {
     if (confirm("¿Estas seguro de querer borrar este Restaurant?")) {
       this.restaurantService.deleteRestaurant(id).subscribe(
         res => this.getRestaurants(),
@@ -147,7 +150,7 @@ export class RestaurantsComponent implements OnInit {
     }
   }
 
-  deleteAllRestaurants() {
+  deleteAllRestaurants(): void {
     if (confirm("¿Estas seguro de querer borrar todos los usuarios?")) {
       this.restaurantService.deleteAllRestaurants().subscribe(
         res => this.getRestaurants(),
@@ -159,20 +162,20 @@ export class RestaurantsComponent implements OnInit {
     }
   }
 
-  editRestaurant(restaurant) {
+  editRestaurant(restaurant: IRestaurant): void {
     this.restaurantSelected = restaurant;
     this.activeFormClass = "active";
     this.createdRestaurant.patchValue(restaurant);
   }
 
-  uploadAvatar(restaurant) {
-    this.restaurantService.uploadAvatar(restaurant.avatar, restaurant.id).subscribe(
+  uploadAvatar(restaurant: IRestaurant): void {
+    this.restaurantService.uploadAvatar(restaurant.avatar, restaurant._id).subscribe(
       res => console.log(res),
       err => console.log(err)
     );
   }
 
-  createOrEditRestaurant(restaurant?) {
+  createOrEditRestaurant(restaurant?: IRestaurant): void {
     //CREAR NUEVO RESTAURANT
     if (!restaurant) {
       if (this.createdRestaurant.valid) {

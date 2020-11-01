@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { tap } from "rxjs/operators";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { IUser } from "src/app/Interfaces/user";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -12,11 +14,11 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  registerUserService(user) {
+  registerUserService(user): Observable<any> {
     return this.http.post(`${this.url}/user/register`, user);
   }
 
-  loginUser(user) {
+  loginUser(user): Observable<any> {
     return this.http.post(`${this.url}/user/login`, user).pipe(
       tap((response: any) => {
         if (response.bearerToken) {
@@ -26,15 +28,15 @@ export class AuthService {
     );
   }
 
-  logout() {
+  logout(): void {
     localStorage.clear();
     this.router.navigateByUrl("auth/login");
   }
 
-  checkRole(roles, userLoged) {
+  checkRole(roles, userLoged): boolean {
     if (userLoged) {
-      const userRol = userLoged.user.rol;
-      const authorized = roles.find((rol) => userRol === rol);
+      const userRol = userLoged.rol;
+      const authorized = roles.find(rol => userRol === rol);
 
       if (authorized) {
         return false;
@@ -44,7 +46,7 @@ export class AuthService {
     }
   }
 
-  getUserLoged() {
+  getUserLoged(): IUser {
     // me debuelve los datos del usuario que inicio sesion
     const token = localStorage.getItem("Authorization");
     const helper = new JwtHelperService();

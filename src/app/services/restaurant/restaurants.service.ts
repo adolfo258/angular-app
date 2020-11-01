@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { IRestaurant } from "src/app/Interfaces/restaurant";
 
 @Injectable({
   providedIn: "root",
@@ -10,34 +11,34 @@ export class RestaurantsService {
 
   constructor(private http: HttpClient) {}
 
-  searchRestaurantService(params): Observable<any> {
-    return this.http.get(`${this.url}/restaurant/search/${params}`);
+  searchRestaurantService(params): Observable<IRestaurant[]> {
+    return this.http.get<IRestaurant[]>(`${this.url}/restaurant/search/${params}`);
   }
 
-  createRestaurant(restaurant) {
-    return this.http.post(`${this.url}/restaurant`, restaurant);
+  createRestaurant(restaurant): Observable<IRestaurant> {
+    return this.http.post<IRestaurant>(`${this.url}/restaurant`, restaurant);
   }
 
-  getRestaurants() {
-    return this.http.get(`${this.url}/restaurant`);
+  getRestaurants(): Observable<IRestaurant[]> {
+    return this.http.get<IRestaurant[]>(`${this.url}/restaurant`);
   }
 
-  deleteRestaurant(id: string) {
-    return this.http.delete(`${this.url}/restaurant/${id}`);
+  deleteRestaurant(id: string): Observable<IRestaurant> {
+    return this.http.delete<IRestaurant>(`${this.url}/restaurant/${id}`);
   }
 
-  deleteAllRestaurants() {
-    return this.http.delete(`${this.url}/restaurant`);
+  deleteAllRestaurants(): Observable<IRestaurant[]> {
+    return this.http.delete<IRestaurant[]>(`${this.url}/restaurant`);
   }
 
-  editRestaurantService(user, id) {
-    return this.http.put(`${this.url}/restaurant/${id}`, user);
+  editRestaurantService(user, id): Observable<IRestaurant> {
+    return this.http.put<IRestaurant>(`${this.url}/restaurant/${id}`, user);
   }
 
-  uploadAvatar(avatar: File, id) {
+  uploadAvatar(avatar: File, id): Observable<IRestaurant> {
     const fd = new FormData();
     fd.append("avatar", avatar);
 
-    return this.http.post(`${this.url}/restaurant/uploads/${id}`, fd);
+    return this.http.post<IRestaurant>(`${this.url}/restaurant/uploads/${id}`, fd);
   }
 }

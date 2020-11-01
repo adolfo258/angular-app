@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { IMeal } from "src/app/Interfaces/meal";
 
 @Injectable({
   providedIn: "root",
@@ -10,34 +11,34 @@ export class MealsService {
 
   constructor(private http: HttpClient) {}
 
-  searchMealService(params): Observable<any> {
-    return this.http.get(`${this.url}/meal/search/${params}`);
+  searchMealService(params): Observable<IMeal[]> {
+    return this.http.get<IMeal[]>(`${this.url}/meal/search/${params}`);
   }
 
-  createMeal(meal) {
-    return this.http.post(`${this.url}/meal`, meal);
+  createMeal(meal: IMeal): Observable<IMeal> {
+    return this.http.post<IMeal>(`${this.url}/meal`, meal);
   }
 
-  getMeals() {
-    return this.http.get(`${this.url}/meal`);
+  getMeals(): Observable<IMeal[]> {
+    return this.http.get<IMeal[]>(`${this.url}/meal`);
   }
 
-  deleteMeal(id: string) {
-    return this.http.delete(`${this.url}/meal/${id}`);
+  deleteMeal(id: string): Observable<IMeal> {
+    return this.http.delete<IMeal>(`${this.url}/meal/${id}`);
   }
 
-  deleteAllMeals() {
-    return this.http.delete(`${this.url}/meal`);
+  deleteAllMeals(): Observable<IMeal[]> {
+    return this.http.delete<IMeal[]>(`${this.url}/meal`);
   }
 
-  editMealService(user, id) {
-    return this.http.put(`${this.url}/meal/${id}`, user);
+  editMealService(user, id): Observable<IMeal> {
+    return this.http.put<IMeal>(`${this.url}/meal/${id}`, user);
   }
 
-  uploadAvatar(avatar: File, id) {
+  uploadAvatar(avatar: File, id): Observable<IMeal> {
     const fd = new FormData();
     fd.append("avatar", avatar);
 
-    return this.http.post(`${this.url}/meal/uploads/${id}`, fd);
+    return this.http.post<IMeal>(`${this.url}/meal/uploads/${id}`, fd);
   }
 }

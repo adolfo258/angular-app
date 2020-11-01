@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { IUser } from "src/app/Interfaces/user";
 
 @Injectable({
   providedIn: "root",
@@ -10,38 +11,38 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  searchUserService(params): Observable<any> {
-    return this.http.get(`${this.url}/user/${params}`);
+  searchUserService(params): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.url}/user/${params}`);
   }
 
-  getUsers() {
-    return this.http.get(`${this.url}/user`);
+  getUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.url}/user`);
   }
 
-  getManagerUsers(): Observable<any> {
-    return this.http.get(`${this.url}/user/managers/restaurants`);
+  getManagerUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.url}/user/managers/restaurants`);
   }
 
-  getMealManagerUsers(): Observable<any> {
-    return this.http.get(`${this.url}/user/managers/meals`);
+  getMealManagerUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.url}/user/managers/meals`);
   }
 
-  deleteUser(id: string) {
-    return this.http.delete(`${this.url}/user/${id}`);
+  deleteUser(id: string): Observable<IUser> {
+    return this.http.delete<IUser>(`${this.url}/user/${id}`);
   }
 
-  deleteAllUsers() {
-    return this.http.delete(`${this.url}/user`);
+  deleteAllUsers(): Observable<IUser[]> {
+    return this.http.delete<IUser[]>(`${this.url}/user`);
   }
 
-  editUserService(user, id) {
-    return this.http.put(`${this.url}/user/${id}`, user);
+  editUserService(user, id): Observable<IUser> {
+    return this.http.put<IUser>(`${this.url}/user/${id}`, user);
   }
 
-  uploadAvatar(avatar: File, id) {
+  uploadAvatar(avatar: File, id): Observable<IUser> {
     const fd = new FormData();
     fd.append("avatar", avatar);
 
-    return this.http.post(`${this.url}/user/uploads/${id}`, fd);
+    return this.http.post<IUser>(`${this.url}/user/uploads/${id}`, fd);
   }
 }

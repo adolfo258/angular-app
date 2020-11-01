@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { IUser } from "src/app/Interfaces/user";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { UsersService } from "../../../services/user/users.service";
 import { HomeComponent } from "../../home.component";
@@ -10,17 +11,17 @@ import { HomeComponent } from "../../home.component";
   styleUrls: ["./users.component.scss"],
 })
 export class UsersComponent implements OnInit {
-  allUsers; //array con todos los users
+  allUsers: IUser[]; //array con todos los users
 
-  activeFormClass; //variable para mostrar o ocultar formulario
+  activeFormClass: string; //variable para mostrar o ocultar formulario
 
   createdUser: FormGroup; //datos del formulario al ser enviado
 
   p: number = 1; //paginador
 
-  userLoged; //usuario que inicio session
+  userLoged: IUser; //usuario que inicio session
 
-  userSelected; //usuario selecionado para editarlo y mostrarlo en el form
+  userSelected: IUser; //usuario selecionado para editarlo y mostrarlo en el form
 
   avatar: File;
 
@@ -45,10 +46,10 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.userLoged = this.homeComponent.userDecoded;
+    this.userLoged = this.homeComponent.userDecoded.user;
   }
 
-  changeClassForm(clase) {
+  changeClassForm(clase: string): void {
     //reseteo los valores del userSelected y del formulario cada vez que lo abro o lo cierro
     this.activeFormClass = clase;
     this.userSelected = null;
@@ -71,49 +72,50 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  changeAvatar(id) {
+  changeAvatar(id): void {
     this.userService.uploadAvatar(this.avatar, id).subscribe(
       res => this.getUsers(),
       err => console.log(err)
     );
   }
 
-  checkRole(roles) {
+  checkRole(roles): boolean {
     return this.authService.checkRole(roles, this.userLoged);
   }
 
   //solo puedo cambiar imagen de mi user o si soy admin el de todos tambien
-  checkAvatarChange(userId) {
-    if (this.userLoged.user._id === userId || this.userLoged.user.rol === "admin") {
+  checkAvatarChange(userId): boolean {
+    if (this.userLoged._id === userId || this.userLoged.rol === "admin") {
       return false;
     } else {
       return true;
     }
   }
 
-  getUsers() {
+  getUsers(): void {
     this.userService.getUsers().subscribe(
       res => (this.allUsers = res),
       err => console.log(err)
     );
   }
 
-  searchUsers(event) {
+  searchUsers(event): void {
     const params = event.target.value;
-
-    this.userService.searchUserService(params).subscribe(
-      res => {
-        if (res.users.length != 0) {
-          this.allUsers = res.users;
-        } else {
-          this.getUsers();
-        }
-      },
-      err => console.log(err)
-    );
+    if (params.length > 3) {
+      this.userService.searchUserService(params).subscribe(
+        res => {
+          if (res.length != 0) {
+            this.allUsers = res;
+          } else {
+            this.getUsers();
+          }
+        },
+        err => console.log(err)
+      );
+    }
   }
 
-  deleteUser(id) {
+  deleteUser(id): void {
     if (confirm("¿Estas seguro de querer borrar este Usuario?")) {
       this.userService.deleteUser(id).subscribe(
         res => this.getUsers(),
@@ -125,7 +127,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  deleteAllUsers() {
+  deleteAllUsers(): void {
     if (confirm("¿Estas seguro de querer borrar todos los usuarios?")) {
       this.userService.deleteAllUsers().subscribe(
         res => this.getUsers(),
@@ -137,20 +139,20 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  editUser(user) {
+  editUser(user: IUser): void {
     this.userSelected = user;
     this.activeFormClass = "active";
     this.createdUser.patchValue(user);
   }
 
-  uploadAvatar(user) {
-    this.userService.uploadAvatar(user.avatar, user.id).subscribe(
+  uploadAvatar(user: IUser): void {
+    this.userService.uploadAvatar(user.avatar, user._id).subscribe(
       res => console.log(res),
       err => console.log(err)
     );
   }
 
-  createOrEditUser(user?) {
+  createOrEditUser(user?: IUser): void {
     //CREAR NUEVO USUARIO
     if (!user) {
       if (this.createdUser.valid) {
