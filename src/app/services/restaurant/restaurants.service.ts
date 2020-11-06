@@ -8,7 +8,7 @@ import { IMeal } from "src/app/Interfaces/meal";
   providedIn: "root",
 })
 export class RestaurantsService {
-  url = "http://localhost:3000";
+  url = "http://localhost:3001";
 
   constructor(private http: HttpClient) {}
 

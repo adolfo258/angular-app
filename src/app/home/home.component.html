@@ -19,7 +19,7 @@
   <div class="aside" [ngClass]="activeMovile">
     <div class="user__name__container">
       <div class="user__profile">
-        <img [src]="'http://localhost:3000/' + userDecoded.user.avatar" alt="" />
+        <img [src]="'http://localhost:3001/' + userDecoded.user.avatar" alt="" />
         <div>
           <p class="nav__name">{{ userDecoded.user.name }} {{ userDecoded.user.lastName }}</p>
           <p class="nav__rol">{{ userDecoded.user.createdAt.substr(0, 10) }}</p>
